@@ -11,5 +11,17 @@ config_version=5
 [application]
 
 config/name="euro-rails"
+run/main_scene="uid://co3l11lbmy5fb"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[display]
+
+window/size/viewport_width=640
+window/size/viewport_height=480
+window/stretch/scale=2.0
+window/stretch/scale_mode="integer"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0

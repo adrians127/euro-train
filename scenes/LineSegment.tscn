@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://d1m3g48ii2o5f"]
+
+[ext_resource type="Script" uid="uid://bskhuj6c6wiva" path="res://scripts/LineSegment.gd" id="1_c4cey"]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_c4cey")
+
+[node name="Line2D" type="Line2D" parent="."]
+scale = Vector2(3.04473, 1.3482)
+points = PackedVector2Array(6.89716, 15.5763, 16.0934, 15.5763)
+default_color = Color(0, 0, 0, 1)
