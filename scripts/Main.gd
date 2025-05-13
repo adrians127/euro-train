@@ -1,34 +1,29 @@
 extends Node2D
+@onready var LinesContainer: Node2D = $LinesContainer
+@onready var Map: TileMapLayer = $TileMapLayer
 @onready var StationsContainer: Node2D = $StationsContainer
 @onready var TrainsContainer: Node = $TrainsContainer
-@onready var LinesContainer: Node2D = $LinesContainer
 
-var station_scene = preload("res://scenes/Station.tscn")
-var stations: Array[Station] = []
+var Station = preload("res://scenes/Station.tscn")
 var graph = {}
+var stations: Array[Station] = []
 var pending_station: int = -1
-var astar = AStar2D.new()
 var passengerTimer: Timer = Timer.new()
+var occupied_cells := {} # grid_pos -> station_id
 
 func _ready() -> void:
-	generate_stations(8)
+	generate_stations(3)
 	init_graph()
-	setup_astar()
 	
 func generate_stations(n: int):
-	var margin = 50
-	var viewport = get_viewport_rect()
+	var free_cells: Array[Vector2i] = Map.generate_station_cells(n)
 	for i in range(n):
-		var pos = Vector2(
-			randi_range(margin, viewport.size.x - margin),
-			randi_range(margin, viewport.size.y - margin)
-		)
-		var st = station_scene.instantiate()
-		st.station_id = i
-		st.position = pos
-		st.connect("station_clicked", Callable(self, "_on_station_clicked"))
-		StationsContainer.add_child(st)
-		stations.append(st)
+		var cell = free_cells[i]
+		print(cell)
+		if cell in occupied_cells:
+			continue
+		occupied_cells[cell] = i
+		Map.place_station_at(cell, Station)
 
 func init_graph():
 	for st in stations:
@@ -42,6 +37,7 @@ func _on_station_clicked(st_id: int):
 		print("connected")
 		add_connection(pending_station, st_id)
 		pending_station = -1
+
 var LineSegment = preload("res://scripts/LineSegment.gd") 
 func add_connection(a: int, b: int):
 	if b in graph[a]:
@@ -57,22 +53,8 @@ func add_connection(a: int, b: int):
 	seg.t_pos = b_pos
 	$LinesContainer.add_child(seg)
 
-func setup_astar():
-	for st in stations:
-		astar.add_point(st.station_id, st.position)
-	for a in graph.keys():
-		for b in graph[a]:
-			if not astar.are_points_connected(a, b):
-				astar.connect_points(a, b)
 
-func send_train(from_id: int, to_id: int):
-	var raw_path = astar.get_point_path(from_id, to_id)
-	if raw_path.size() < 2:
-		return
-	var train = preload("res://scenes/Train.tscn").instantiate()
-	train.position = raw_path[0]
-	train.set_path(raw_path)
-	TrainsContainer.add_child(train)
+
 	
 func _on_PassengerTimer_timeout():
 	var a = randi() % stations.size()
