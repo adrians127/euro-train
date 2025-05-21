@@ -4,17 +4,25 @@ const BACKGROUND_TILE_ID := 0
 const RAIL_TILE_ID := 1
 const STATION_TILE_ID := 2
 
+@onready var TrainsContainer: Node = $TrainsContainer
 #var grid_size_x = 640 / 16
 #var grid_size_y = 480 / 16
 @export var grid_size_x = 16
 @export var grid_size_y = 16
+var TrainScene = preload("res://scenes/Train.tscn")
 var cells: Dictionary[Vector2i, Dictionary] = {}
 var astar = AStarGrid2D.new()
 var stations : Array[Station] = []
 var station_graph : Dictionary 
 
+var tracks = 20
+
+@onready var TrackCounterLabel: Label = get_node("../UI/Label")
+var track_count: int = 0
+
 func _ready() -> void:
 	_init_map()
+	_update_track_counter()
 	_init_astar()
 
 func _init_map() -> void:
@@ -58,21 +66,32 @@ func toggle_rail_at(cell: Vector2i) -> void:
 			_remove_rail(cell)
 
 func _add_rail(cell: Vector2i) -> void:
+	if (tracks == 0):
+		return;
+	elif (tracks < 0):
+		print("Shouldn t tracks be below 0")
+	tracks -= 1
 	set_cell(cell, RAIL_TILE_ID, Vector2i.ZERO, 0)
 	cells[cell]["type"] = "rail"
 	astar.set_point_solid(cell, false)
+	_update_track_counter()
 	_update_connections()
+
 
 func _remove_rail(cell: Vector2i) -> void:
 	# Either erase the tile completely…
 	#   erase_cell(cell)         # Godot 4 convenience
 	# …or draw a background tile again:
+	tracks += 1
 	set_cell(cell, BACKGROUND_TILE_ID, Vector2i.ZERO, 0)
 
 	cells[cell]["type"] = "background"
 	astar.set_point_solid(cell, true)
+	_update_track_counter()
 	_update_connections()
 
+func _update_track_counter() -> void:
+	TrackCounterLabel.text = "Tracks: %d" % tracks
 
 func place_station_at(cell: Vector2i, station_scene: PackedScene):
 	if not cells.has(cell) or cells[cell].type == "station":
@@ -116,7 +135,34 @@ func _update_connections() -> void:
 	for id in station_graph.keys():
 		print('Station %d → %s' % [id, station_graph[id]])
 
+func get_connected_stations(station_id: int):
+	return station_graph.get(station_id, [])
+
 func generate_station_cells(n: int) -> Array[Vector2i]:
 	var free = get_free_cells()
 	free.shuffle()
 	return free.slice(0, n)
+	
+func _on_station_clicked(station_id: int) -> void:
+	if (get_connected_stations(station_id).is_empty()):
+		return
+	spawn_train(station_id, get_connected_stations(station_id)[0])
+	
+func spawn_train(from_id: int, to_id: int) -> void:
+	# 1) grab the stations
+	var stA = stations[from_id]
+	var stB = stations[to_id]
+
+	# 2) ask the TileMapLayer for the raw grid‐path
+	var cell_path := astar.get_point_path(stA.cell_pos, stB.cell_pos)
+	if cell_path.is_empty():
+		return  # no rails connecting them
+
+	var world_path:Array[Vector2] = []
+	for cell in cell_path:
+		world_path.append( map_to_local(cell) )
+	
+	var train = TrainScene.instantiate()
+	train.position = world_path[0]
+	train.set_path(world_path, [stA, stB] as Array[Station])
+	TrainsContainer.add_child(train)

@@ -2,7 +2,6 @@ extends Node2D
 @onready var LinesContainer: Node2D = $LinesContainer
 @onready var Map: TileMapLayer = $TileMapLayer
 @onready var StationsContainer: Node2D = $StationsContainer
-@onready var TrainsContainer: Node = $TrainsContainer
 
 var Station = preload("res://scenes/Station.tscn")
 var graph = {}
@@ -11,9 +10,11 @@ var pending_station: int = -1
 var passengerTimer: Timer = Timer.new()
 var occupied_cells := {} # grid_pos -> station_id
 
+
 func _ready() -> void:
 	generate_stations(3)
 	init_graph()
+
 	
 func generate_stations(n: int):
 	var free_cells: Array[Vector2i] = Map.generate_station_cells(n)
@@ -29,15 +30,6 @@ func init_graph():
 	for st in stations:
 		graph[st.station_id] = []
 
-func _on_station_clicked(st_id: int):
-	if pending_station < 0:
-		pending_station = st_id
-		return
-	if st_id != pending_station:
-		print("connected")
-		add_connection(pending_station, st_id)
-		pending_station = -1
-
 var LineSegment = preload("res://scripts/LineSegment.gd") 
 func add_connection(a: int, b: int):
 	if b in graph[a]:
@@ -52,14 +44,3 @@ func add_connection(a: int, b: int):
 	seg.f_pos = a_pos
 	seg.t_pos = b_pos
 	$LinesContainer.add_child(seg)
-
-
-
-	
-func _on_PassengerTimer_timeout():
-	var a = randi() % stations.size()
-	var b = randi() % stations.size()
-	if a == b: return
-	# dodaj 'pasażera' do stacji a
-	stations[a].waiting_passengers.append(b)
-	# ewentualnie: emit_signal("passenger_created", a, b)

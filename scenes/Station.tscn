@@ -14,3 +14,9 @@ texture = ExtResource("2_wy22o")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_csis4")
+
+[node name="CountLabel" type="Label" parent="."]
+offset_left = -8.0
+offset_top = -8.0
+offset_right = 8.0
+offset_bottom = 15.0
