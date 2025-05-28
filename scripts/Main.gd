@@ -2,45 +2,39 @@ extends Node2D
 @onready var LinesContainer: Node2D = $LinesContainer
 @onready var Map: TileMapLayer = $TileMapLayer
 @onready var StationsContainer: Node2D = $StationsContainer
+@onready var GameOverScreen: CanvasLayer = $Gameover
 
 var Station = preload("res://scenes/Station.tscn")
 var graph = {}
 var stations: Array[Station] = []
 var pending_station: int = -1
-var passengerTimer: Timer = Timer.new()
 var occupied_cells := {} # grid_pos -> station_id
+var passengerTimer: Timer = Timer.new()
+var station_timer: Timer = Timer.new()
 
 
 func _ready() -> void:
-	generate_stations(3)
-	init_graph()
-
+	_generate_initial_stations()
 	
+	station_timer.wait_time = 5
+	station_timer.one_shot = false
+	add_child(station_timer)
+	station_timer.connect("timeout", Callable(self, "_on_station_timer_timeout"))
+	station_timer.start()
+	
+func _generate_initial_stations():
+	generate_stations(2)
+
+func _on_station_timer_timeout():
+	generate_stations(1)
+
 func generate_stations(n: int):
 	var free_cells: Array[Vector2i] = Map.generate_station_cells(n)
 	for i in range(n):
-		var cell = free_cells[i]
-		print(cell)
-		if cell in occupied_cells:
+		var st : Station = Map.place_station_at(free_cells[i], Station)
+		if st == null:            
 			continue
-		occupied_cells[cell] = i
-		Map.place_station_at(cell, Station)
+		stations.append(st)
 
-func init_graph():
-	for st in stations:
-		graph[st.station_id] = []
-
-var LineSegment = preload("res://scripts/LineSegment.gd") 
-func add_connection(a: int, b: int):
-	if b in graph[a]:
-		return
-	graph[a].append(b)
-	graph[b].append(a)
-	var a_pos = stations[a].position
-	var b_pos = stations[b].position
-	var seg = LineSegment.new()
-	seg.from_id = a
-	seg.to_id = b
-	seg.f_pos = a_pos
-	seg.t_pos = b_pos
-	$LinesContainer.add_child(seg)
+#func _on_game_over(final_score:int) -> void:
+	#get_tree().change_scene_to_file("res://scenes/Gameover.tscn")

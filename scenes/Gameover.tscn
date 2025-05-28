@@ -1,0 +1,18 @@
+[gd_scene load_steps=2 format=3 uid="uid://dafxpij2tmt6n"]
+
+[ext_resource type="Script" uid="uid://cpfu2r1nf85pq" path="res://scripts/Gameover.gd" id="1_7gsdj"]
+
+[node name="Gameover" type="CanvasLayer"]
+script = ExtResource("1_7gsdj")
+
+[node name="Label" type="Label" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 285.0
+offset_top = 171.0
+offset_right = -270.0
+offset_bottom = -286.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Game over"

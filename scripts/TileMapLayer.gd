@@ -95,7 +95,7 @@ func _update_track_counter() -> void:
 
 func place_station_at(cell: Vector2i, station_scene: PackedScene):
 	if not cells.has(cell) or cells[cell].type == "station":
-		return
+		return null
 	
 	cells[cell].type = "station"
 	set_cell(cell, STATION_TILE_ID, Vector2i(0,0), 0)

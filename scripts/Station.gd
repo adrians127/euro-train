@@ -5,15 +5,16 @@ signal station_clicked(station_id: int)
 @onready var count_label := $CountLabel
 @export var station_id: int = -1 
 @export var cell_pos: Vector2i
-@export var capacity: int = 10    # max passengers
-@export var spawn_interval: float = 1.0   # seconds between spawn attempts
-@export var spawn_chance: float = 0.2     # 20% chance per interval
+@export var capacity: int = 4    # max passengers
+@export var spawn_interval: float = 1   # seconds between spawn attempts
+@export var spawn_chance: float = 0.15    # chance per interval
 
 var waiting_passengers: int = 0
+
 var _spawn_timer: Timer
+var _overload_timer: Timer
 
 func _ready() -> void:
-	# make sure randoms aren't the same each run
 	randomize()
 	# Create (or you can do this in the editor)
 	_spawn_timer = Timer.new()
@@ -22,6 +23,14 @@ func _ready() -> void:
 	add_child(_spawn_timer)
 	_spawn_timer.connect("timeout", Callable(self, "_on_spawn_timer_timeout"))
 	_spawn_timer.start()
+	
+	_load_overload()
+
+func _load_overload():
+	_overload_timer = Timer.new()
+	_overload_timer.wait_time = 3.0
+	add_child(_overload_timer)
+	_overload_timer.connect("timeout", Callable(self, "_on_overload_timeout"))
 
 func setup(id: int, cell: Vector2i, pos: Vector2, parent: Node) -> void:
 	station_id = id
@@ -37,6 +46,8 @@ func take_passengers(count: int):
 	var boarded = min(count, waiting_passengers)
 	waiting_passengers -= boarded
 	count_label.text = str(waiting_passengers)
+	_check_overload()
+	return boarded
 
 func set_connected(value: bool) -> void:
 	var spr: CanvasItem = get_child(0)
@@ -46,12 +57,19 @@ func set_connected(value: bool) -> void:
 		spr.modulate = Color(1,0,0)
 
 func _on_spawn_timer_timeout() -> void:
-	# Only spawn if we're under capacity
-	if waiting_passengers < capacity:
-		# roll a random float in [0,1)
-		if randf() < spawn_chance:
-			waiting_passengers += 1
-			#print(waiting_passengers)
-			count_label.text = str(waiting_passengers)
-			# optional: update UI, emit signal, etc.
-			# e.g. emit_signal("passenger_arrived", station_id, waiting_passengers)
+	if randf() < spawn_chance:
+		waiting_passengers += 1
+		count_label.text = str(waiting_passengers)
+	_check_overload()
+
+func _check_overload() -> void:
+	var overloaded := waiting_passengers > capacity
+	count_label.modulate = Color(1,0,0) if overloaded else Color(1,1,1)
+	if overloaded and _overload_timer.is_stopped():
+		_overload_timer.start()
+	elif not overloaded:
+		_overload_timer.stop()
+
+func _on_overload_timeout():
+	emit_signal("overload_lost")
+	get_tree().change_scene_to_file("res://scenes/Gameover.tscn")
