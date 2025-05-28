@@ -16,6 +16,8 @@ var stations : Array[Station] = []
 var station_graph : Dictionary 
 
 var tracks = 20
+@export var track_interval_seconds : float = 10.0   # how often to give tracks
+@export var tracks_per_drop        : int   = 5      # how many to give each time
 
 @onready var TrackCounterLabel: Label = get_node("../UI/Label")
 var track_count: int = 0
@@ -24,6 +26,21 @@ func _ready() -> void:
 	_init_map()
 	_update_track_counter()
 	_init_astar()
+	_start_track_timer()
+	
+	
+var _track_timer : Timer 
+func _start_track_timer():
+	_track_timer = Timer.new()
+	_track_timer.wait_time = track_interval_seconds
+	_track_timer.one_shot  = false
+	add_child(_track_timer)
+	_track_timer.connect("timeout", Callable(self, "_on_track_timer_timeout"))
+	_track_timer.start()
+
+func _on_track_timer_timeout() -> void:
+	tracks += tracks_per_drop
+	_update_track_counter()
 
 func _init_map() -> void:
 	for x in grid_size_x:
