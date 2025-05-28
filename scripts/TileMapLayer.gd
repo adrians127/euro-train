@@ -135,7 +135,7 @@ func _update_connections() -> void:
 	for id in station_graph.keys():
 		print('Station %d → %s' % [id, station_graph[id]])
 
-func get_connected_stations(station_id: int):
+func get_connected_stations(station_id: int) -> Array:
 	return station_graph.get(station_id, [])
 
 func generate_station_cells(n: int) -> Array[Vector2i]:
@@ -146,23 +146,12 @@ func generate_station_cells(n: int) -> Array[Vector2i]:
 func _on_station_clicked(station_id: int) -> void:
 	if (get_connected_stations(station_id).is_empty()):
 		return
-	spawn_train(station_id, get_connected_stations(station_id)[0])
+	spawn_train(station_id)
 	
-func spawn_train(from_id: int, to_id: int) -> void:
-	# 1) grab the stations
-	var stA = stations[from_id]
-	var stB = stations[to_id]
+func spawn_train(from_id: int) -> void:
+	var st_start : Station = stations[from_id]
 
-	# 2) ask the TileMapLayer for the raw grid‐path
-	var cell_path := astar.get_point_path(stA.cell_pos, stB.cell_pos)
-	if cell_path.is_empty():
-		return  # no rails connecting them
-
-	var world_path:Array[Vector2] = []
-	for cell in cell_path:
-		world_path.append( map_to_local(cell) )
-	
 	var train = TrainScene.instantiate()
-	train.position = world_path[0]
-	train.set_path(world_path, [stA, stB] as Array[Station])
+	train.init(self, st_start)          # NEW
+	train.position = map_to_local(st_start.cell_pos)
 	TrainsContainer.add_child(train)

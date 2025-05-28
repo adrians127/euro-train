@@ -42,7 +42,7 @@ func _input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton and event.pressed and event.button_index == MOUSE_BUTTON_LEFT:
 		emit_signal("station_clicked", station_id)
 		
-func take_passengers(count: int):
+func take_passengers(count: int) -> int:
 	var boarded = min(count, waiting_passengers)
 	waiting_passengers -= boarded
 	count_label.text = str(waiting_passengers)
