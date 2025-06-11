@@ -46,6 +46,7 @@ func arrive() -> void:
 	# wait 2 s to simulate boarding
 	await get_tree().create_timer(2.0).timeout
 	var boarded := _curr_station.take_passengers(boarding_rate)
+	_map_layer.add_score(boarded)
 
 	choose_next_station()          # pick new destination and restart
 
@@ -57,6 +58,7 @@ func choose_next_station() -> void:
 	# no neighbours at all  →  give up
 	if next_ids.is_empty():
 		queue_free()
+		_map_layer.despawn_train()
 		return
 
 	# try to avoid an immediate U-turn, but only if there are alternatives
@@ -65,7 +67,8 @@ func choose_next_station() -> void:
 
 	# after filtering, verify again
 	if next_ids.is_empty():
-		queue_free()        # or allow a U-turn by removing this line
+		queue_free()  
+		_map_layer.despawn_train()      # or allow a U-turn by removing this line
 		return
 
 	# safe: size ≥ 1
@@ -77,6 +80,7 @@ func choose_next_station() -> void:
 															next_st.cell_pos)
 	if cell_path.is_empty():
 		queue_free()
+		_map_layer.despawn_train()
 		return
 
 	_path.clear()

@@ -30,6 +30,8 @@ func _on_station_timer_timeout():
 
 func generate_stations(n: int):
 	var free_cells: Array[Vector2i] = Map.generate_station_cells(n)
+	if free_cells.is_empty():
+		GameManager.trigger_game_won()
 	for i in range(n):
 		var st : Station = Map.place_station_at(free_cells[i], Station)
 		if st == null:            

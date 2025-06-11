@@ -11,9 +11,13 @@ config_version=5
 [application]
 
 config/name="euro-rails"
-run/main_scene="uid://co3l11lbmy5fb"
+run/main_scene="uid://c0ix3ngwekma2"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[autoload]
+
+GameManager="*res://scripts/GameManager.gd"
 
 [display]
 

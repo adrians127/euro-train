@@ -15,11 +15,21 @@ var astar = AStarGrid2D.new()
 var stations : Array[Station] = []
 var station_graph : Dictionary 
 
+@export var score: int = 0
+
 var tracks = 20
+@export var trains_available = 3
 @export var track_interval_seconds : float = 10.0   # how often to give tracks
 @export var tracks_per_drop        : int   = 5      # how many to give each time
+@export var train_drop_interval_seconds: float = 20.0
+@export var trains_per_drop : int = 2
 
 @onready var TrackCounterLabel: Label = get_node("../UI/Label")
+@onready var TrainCounterLabel: Label = get_node("../UI/Trainlabel")
+@onready var ScoreCounterLabel: Label = get_node("../UI/Scorelabel")
+
+signal score_changed(new_score: int)
+
 var track_count: int = 0
 
 func _ready() -> void:
@@ -27,9 +37,12 @@ func _ready() -> void:
 	_update_track_counter()
 	_init_astar()
 	_start_track_timer()
+	_start_train_timer()
+	_update_score_counter()
 	
 	
 var _track_timer : Timer 
+var _train_timer : Timer
 func _start_track_timer():
 	_track_timer = Timer.new()
 	_track_timer.wait_time = track_interval_seconds
@@ -37,6 +50,19 @@ func _start_track_timer():
 	add_child(_track_timer)
 	_track_timer.connect("timeout", Callable(self, "_on_track_timer_timeout"))
 	_track_timer.start()
+
+func _start_train_timer() -> void:
+	_train_timer = Timer.new()
+	_train_timer.wait_time = train_drop_interval_seconds
+	_train_timer.one_shot = false
+	add_child(_train_timer)
+	_train_timer.connect("timeout", Callable(self, "_on_train_timer_timeout"))
+	_train_timer.start()
+	_update_train_counter()
+
+func _on_train_timer_timeout() -> void:
+	trains_available += trains_per_drop
+	_update_train_counter()
 
 func _on_track_timer_timeout() -> void:
 	tracks += tracks_per_drop
@@ -109,6 +135,9 @@ func _remove_rail(cell: Vector2i) -> void:
 
 func _update_track_counter() -> void:
 	TrackCounterLabel.text = "Tracks: %d" % tracks
+	
+func _update_train_counter() -> void:
+	TrainCounterLabel.text = "Trains: %d " % trains_available
 
 func place_station_at(cell: Vector2i, station_scene: PackedScene):
 	if not cells.has(cell) or cells[cell].type == "station":
@@ -163,6 +192,10 @@ func generate_station_cells(n: int) -> Array[Vector2i]:
 func _on_station_clicked(station_id: int) -> void:
 	if (get_connected_stations(station_id).is_empty()):
 		return
+	if trains_available <= 0:
+		return
+	trains_available -= 1
+	_update_train_counter()
 	spawn_train(station_id)
 	
 func spawn_train(from_id: int) -> void:
@@ -172,3 +205,15 @@ func spawn_train(from_id: int) -> void:
 	train.init(self, st_start)          # NEW
 	train.position = map_to_local(st_start.cell_pos)
 	TrainsContainer.add_child(train)
+	
+func despawn_train():
+	trains_available += 1
+	_update_train_counter()
+func add_score(points: int) -> void:
+	GameManager.add_score(points)
+	score += points
+	emit_signal("score_changed", score)
+	_update_score_counter()
+	
+func _update_score_counter() -> void:
+	ScoreCounterLabel.text = "Score: %d " % score

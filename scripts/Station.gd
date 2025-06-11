@@ -71,5 +71,4 @@ func _check_overload() -> void:
 		_overload_timer.stop()
 
 func _on_overload_timeout():
-	emit_signal("overload_lost")
-	get_tree().change_scene_to_file("res://scenes/Gameover.tscn")
+	GameManager.trigger_game_over()
