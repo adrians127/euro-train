@@ -3,7 +3,7 @@ const MIN_STATION_DISTANCE := 2
 
 const BACKGROUND_TILE_ID := -1
 const BACKGROUND_UNUSABLE_ID := -1
-const RAIL_TILE_ID := 1
+const RAIL_TILE_ID := 9
 const STATION_TILE_ID := 2
 
 const WATER_CELLS : Array[Vector2i] = [
