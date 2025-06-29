@@ -5,7 +5,7 @@ signal station_clicked(station_id: int)
 @onready var count_label := $CountLabel
 @export var station_id: int = -1 
 @export var cell_pos: Vector2i
-@export var capacity: int = 4    # max passengers
+@export var capacity: int = 5    # max passengers
 @export var spawn_interval: float = 1   # seconds between spawn attempts
 @export var spawn_chance: float = 0.15    # chance per interval
 

@@ -32,11 +32,9 @@ func generate_stations(n: int):
 	var free_cells: Array[Vector2i] = Map.generate_station_cells(n)
 	if free_cells.is_empty():
 		GameManager.trigger_game_won()
+		return
 	for i in range(n):
 		var st : Station = Map.place_station_at(free_cells[i], Station)
 		if st == null:            
 			continue
 		stations.append(st)
-
-#func _on_game_over(final_score:int) -> void:
-	#get_tree().change_scene_to_file("res://scenes/Gameover.tscn")

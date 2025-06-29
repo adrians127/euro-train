@@ -1,7 +1,7 @@
 extends Node2D
 class_name Train
 
-@export var speed : float = 100.0
+@export var speed : float = 200.0
 var boarding_rate : int   = 2
 
 var _map_layer    : TileMapLayer

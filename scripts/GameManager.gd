@@ -15,6 +15,8 @@ func add_score(amount:int) -> void:
 func trigger_game_over() -> void:
 	emit_signal("game_over", score)
 	get_tree().change_scene_to_file("res://scenes/Gameover.tscn")
+	
 func trigger_game_won() -> void:
 	emit_signal("game_won", score)
-	get_tree().change_scene_to_file("res://scenes/Win.tscn")
+	var err := get_tree().change_scene_to_file("res://scenes/Gameover.tscn")
+	print(err)
