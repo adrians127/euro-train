@@ -1,14 +1,10 @@
 [gd_scene load_steps=10 format=3 uid="uid://co3l11lbmy5fb"]
 
 [ext_resource type="Script" uid="uid://cm4dx7dtmkdk6" path="res://scripts/Main.gd" id="1_elqb8"]
-[ext_resource type="Texture2D" uid="uid://u1tvr2pinv7i" path="res://assets/base.png" id="2_vcsgt"]
 [ext_resource type="Script" uid="uid://brpqep5x5qglu" path="res://scripts/TileMapLayer.gd" id="3_0bbpv"]
 [ext_resource type="Texture2D" uid="uid://cklt7sb7wl8kb" path="res://assets/rail.png" id="3_rarhs"]
 [ext_resource type="Texture2D" uid="uid://cprxj2eau15nb" path="res://assets/house1.png" id="4_c01mt"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_c01mt"]
-texture = ExtResource("2_vcsgt")
-0:0/0 = 0
+[ext_resource type="Texture2D" uid="uid://br74ottxli04j" path="res://assets/test32.png" id="6_nxtc6"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jlsqs"]
 texture = ExtResource("3_rarhs")
@@ -18,10 +14,16 @@ texture = ExtResource("3_rarhs")
 texture = ExtResource("4_c01mt")
 0:0/0 = 0
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lhr70"]
+texture = ExtResource("6_nxtc6")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+
 [sub_resource type="TileSet" id="TileSet_rarhs"]
+tile_size = Vector2i(32, 32)
 sources/1 = SubResource("TileSetAtlasSource_jlsqs")
 sources/2 = SubResource("TileSetAtlasSource_q8u5g")
-sources/0 = SubResource("TileSetAtlasSource_c01mt")
+sources/5 = SubResource("TileSetAtlasSource_lhr70")
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_elqb8")

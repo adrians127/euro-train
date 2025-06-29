@@ -1,13 +1,13 @@
 extends TileMapLayer
 
-const BACKGROUND_TILE_ID := 0
+const BACKGROUND_TILE_ID := 5
 const RAIL_TILE_ID := 1
 const STATION_TILE_ID := 2
 
 @onready var TrainsContainer: Node = $TrainsContainer
 #var grid_size_x = 640 / 16
 #var grid_size_y = 480 / 16
-@export var grid_size_x = 16
+@export var grid_size_x = 26
 @export var grid_size_y = 16
 var TrainScene = preload("res://scenes/Train.tscn")
 var cells: Dictionary[Vector2i, Dictionary] = {}
@@ -33,6 +33,7 @@ signal score_changed(new_score: int)
 var track_count: int = 0
 
 func _ready() -> void:
+	clear()
 	_init_map()
 	_update_track_counter()
 	_init_astar()
@@ -69,14 +70,15 @@ func _on_track_timer_timeout() -> void:
 	_update_track_counter()
 
 func _init_map() -> void:
+	set_rendering_quadrant_size(24)
 	for x in grid_size_x:
 		for y in grid_size_y:
 			var cell = Vector2i(x, y)
 			cells[cell] = {"type": "background"}
-			set_cell(cell, 0, Vector2i(0,0), 0)
+			set_cell(cell, BACKGROUND_TILE_ID, Vector2i(0,0), 0)
 
 func _init_astar() -> void:
-	astar.region = Rect2i(0, 0, 16, 16)
+	astar.region = Rect2i(0, 0, grid_size_x, grid_size_y)
 	astar.cell_size = Vector2i(1, 1)
 	astar.diagonal_mode = AStarGrid2D.DIAGONAL_MODE_NEVER
 	astar.update()
