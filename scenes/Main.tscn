@@ -1,13 +1,19 @@
-[gd_scene load_steps=14 format=3 uid="uid://co3l11lbmy5fb"]
+[gd_scene load_steps=16 format=3 uid="uid://co3l11lbmy5fb"]
 
 [ext_resource type="Script" uid="uid://cm4dx7dtmkdk6" path="res://scripts/Main.gd" id="1_elqb8"]
 [ext_resource type="Texture2D" uid="uid://bc5a3tytoyp1d" path="res://assets/Rail64x64_nobackground.png" id="2_nxtc6"]
+[ext_resource type="Texture2D" uid="uid://cxuuk3dc4mphd" path="res://assets/Stationbest.png" id="2_q8u5g"]
 [ext_resource type="Script" uid="uid://brpqep5x5qglu" path="res://scripts/TileMapLayer.gd" id="3_0bbpv"]
 [ext_resource type="Texture2D" uid="uid://cprxj2eau15nb" path="res://assets/house1.png" id="4_c01mt"]
 [ext_resource type="Texture2D" uid="uid://cklt7sb7wl8kb" path="res://assets/Rail64x64.png" id="5_jlsqs"]
 [ext_resource type="Texture2D" uid="uid://bus73bsk8gsl4" path="res://assets/background-europe.png" id="6_jlsqs"]
 [ext_resource type="Texture2D" uid="uid://br74ottxli04j" path="res://assets/test32.png" id="6_nxtc6"]
 [ext_resource type="Texture2D" uid="uid://c42hnc1exwbh4" path="res://assets/railui.png" id="7_nxtc6"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bjd11"]
+texture = ExtResource("2_q8u5g")
+texture_region_size = Vector2i(64, 64)
+0:0/0 = 0
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jlsqs"]
 texture = ExtResource("2_nxtc6")
@@ -35,6 +41,7 @@ sources/2 = SubResource("TileSetAtlasSource_q8u5g")
 sources/5 = SubResource("TileSetAtlasSource_lhr70")
 sources/1 = SubResource("TileSetAtlasSource_jlsqs")
 sources/9 = SubResource("TileSetAtlasSource_wp0k4")
+sources/0 = SubResource("TileSetAtlasSource_bjd11")
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource("1_elqb8")

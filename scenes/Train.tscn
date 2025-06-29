@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://1mkfljmwpba1" path="res://scripts/Train.gd" id="2_426cx"]
 
 [node name="Node2D" type="Node2D"]
+z_index = -4
 script = ExtResource("2_426cx")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
