@@ -5,8 +5,6 @@ const RAIL_TILE_ID := 1
 const STATION_TILE_ID := 2
 
 @onready var TrainsContainer: Node = $TrainsContainer
-#var grid_size_x = 640 / 16
-#var grid_size_y = 480 / 16
 @export var grid_size_x = 26
 @export var grid_size_y = 16
 var TrainScene = preload("res://scenes/Train.tscn")
@@ -75,7 +73,7 @@ func _init_map() -> void:
 		for y in grid_size_y:
 			var cell = Vector2i(x, y)
 			cells[cell] = {"type": "background"}
-			set_cell(cell, BACKGROUND_TILE_ID, Vector2i(0,0), 0)
+			set_cell(cell, -1, Vector2i(0,0), 0)
 
 func _init_astar() -> void:
 	astar.region = Rect2i(0, 0, grid_size_x, grid_size_y)
@@ -128,7 +126,7 @@ func _remove_rail(cell: Vector2i) -> void:
 	#   erase_cell(cell)         # Godot 4 convenience
 	# …or draw a background tile again:
 	tracks += 1
-	set_cell(cell, BACKGROUND_TILE_ID, Vector2i.ZERO, 0)
+	set_cell(cell, -1, Vector2i.ZERO, 0)
 
 	cells[cell]["type"] = "background"
 	astar.set_point_solid(cell, true)
