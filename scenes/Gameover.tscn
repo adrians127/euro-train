@@ -1,9 +1,17 @@
-[gd_scene load_steps=2 format=3 uid="uid://dafxpij2tmt6n"]
+[gd_scene load_steps=3 format=3 uid="uid://dafxpij2tmt6n"]
 
 [ext_resource type="Script" uid="uid://cpfu2r1nf85pq" path="res://scripts/Gameover.gd" id="1_7gsdj"]
+[ext_resource type="Texture2D" uid="uid://c4sjq7nwjm3r5" path="res://assets/background-europe-blur.png" id="2_cpwbi"]
 
 [node name="Gameover" type="CanvasLayer"]
 script = ExtResource("1_7gsdj")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+show_behind_parent = true
+position = Vector2(0, -60)
+scale = Vector2(2.3, 2.3)
+texture = ExtResource("2_cpwbi")
+centered = false
 
 [node name="Label" type="Label" parent="."]
 anchors_preset = 8
