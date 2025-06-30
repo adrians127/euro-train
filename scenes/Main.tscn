@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://co3l11lbmy5fb"]
+[gd_scene load_steps=19 format=3 uid="uid://co3l11lbmy5fb"]
 
 [ext_resource type="Script" uid="uid://cm4dx7dtmkdk6" path="res://scripts/Main.gd" id="1_elqb8"]
 [ext_resource type="Texture2D" uid="uid://bc5a3tytoyp1d" path="res://assets/Rail64x64_nobackground.png" id="2_nxtc6"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://bus73bsk8gsl4" path="res://assets/background-europe.png" id="6_jlsqs"]
 [ext_resource type="Texture2D" uid="uid://br74ottxli04j" path="res://assets/test32.png" id="6_nxtc6"]
 [ext_resource type="Texture2D" uid="uid://c42hnc1exwbh4" path="res://assets/railui.png" id="7_nxtc6"]
+[ext_resource type="FontFile" uid="uid://rtxkqtqh6g0n" path="res://fonts/Jersey10-Regular.ttf" id="10_bjd11"]
 [ext_resource type="Texture2D" uid="uid://dis7c1470xovt" path="res://assets/side-background.png" id="10_lhr70"]
 [ext_resource type="Texture2D" uid="uid://c607ib00aqa8x" path="res://assets/logo-no-background.png" id="11_wp0k4"]
 
@@ -85,14 +86,20 @@ stretch_mode = 5
 
 [node name="Label" type="Label" parent="UI/GridContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("10_bjd11")
+theme_override_font_sizes/font_size = 20
 text = "ses"
 
 [node name="Trainlabel" type="Label" parent="UI/GridContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("10_bjd11")
+theme_override_font_sizes/font_size = 20
 text = "s"
 
 [node name="Scorelabel" type="Label" parent="UI/GridContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("10_bjd11")
+theme_override_font_sizes/font_size = 20
 text = "s"
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]

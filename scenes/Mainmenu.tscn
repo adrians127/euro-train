@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://c0ix3ngwekma2"]
+[gd_scene load_steps=6 format=3 uid="uid://c0ix3ngwekma2"]
 
 [ext_resource type="Script" uid="uid://2rm5aget2c4b" path="res://scripts/mainmenu.gd" id="1_gmv32"]
+[ext_resource type="FontFile" uid="uid://rtxkqtqh6g0n" path="res://fonts/Jersey10-Regular.ttf" id="2_krtfg"]
 [ext_resource type="Texture2D" uid="uid://c4sjq7nwjm3r5" path="res://assets/background-europe-blur.png" id="2_n47lj"]
 [ext_resource type="Texture2D" uid="uid://c607ib00aqa8x" path="res://assets/logo-no-background.png" id="3_45mqy"]
 
@@ -36,12 +37,14 @@ grow_vertical = 2
 
 [node name="Button" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_krtfg")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_fk6kl")
 text = "Start game"
 
 [node name="Button2" type="Button" parent="VBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("2_krtfg")
 theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_fk6kl")
 text = "Exit game"
