@@ -46,9 +46,10 @@ var tracks = 20
 @export var train_drop_interval_seconds: float = 20.0
 @export var trains_per_drop : int = 2
 
-@onready var TrackCounterLabel: Label = get_node("../UI/GridContainer/Label")
-@onready var TrainCounterLabel: Label = get_node("../UI/GridContainer/Trainlabel")
-@onready var ScoreCounterLabel: Label = get_node("../UI/GridContainer/Scorelabel")
+@onready var TrackCounterLabel: Label = get_node("../UI/VBoxContainer/HBoxContainer/TracksLabel")
+@onready var TrainCounterLabel: Label = get_node("../UI/VBoxContainer/HBoxContainer2/Trainlabel")
+@onready var ScoreCounterLabel: Label = get_node("../UI/VBoxContainer2/HBoxContainer3/Scorelabel")
+@onready var StationCounterLabel: Label = get_node("../UI/VBoxContainer2/HBoxContainer/StationsLabel")
 
 signal score_changed(new_score: int)
 
@@ -171,6 +172,9 @@ func _update_train_counter() -> void:
 
 func _update_score_counter() -> void:
 	ScoreCounterLabel.text = "Score: %d " % score
+
+func _update_stations_counter() -> void:
+	StationCounterLabel.text = "Stations: %d " % len(stations)
 	
 func _is_far_enough_from_other_stations(cell: Vector2i) -> bool:
 	for dx in [-1, 0, 1]:

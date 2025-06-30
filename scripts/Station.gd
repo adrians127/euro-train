@@ -10,6 +10,7 @@ signal station_clicked(station_id: int)
 @export var spawn_chance: float = 0.15    # chance per interval
 
 var waiting_passengers: int = 0
+var stations: int = 0
 
 var _spawn_timer: Timer
 var _overload_timer: Timer

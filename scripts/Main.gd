@@ -12,6 +12,8 @@ var occupied_cells := {} # grid_pos -> station_id
 var passengerTimer: Timer = Timer.new()
 var station_timer: Timer = Timer.new()
 
+func _update_stations_counter() -> void:
+	Map._update_stations_counter()
 
 func _ready() -> void:
 	_generate_initial_stations()
@@ -24,6 +26,7 @@ func _ready() -> void:
 	
 func _generate_initial_stations():
 	generate_stations(2)
+	
 
 func _on_station_timer_timeout():
 	generate_stations(1)
@@ -38,3 +41,5 @@ func generate_stations(n: int):
 		if st == null:            
 			continue
 		stations.append(st)
+	_update_stations_counter()
+	

@@ -8,9 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://cklt7sb7wl8kb" path="res://assets/Rail64x64.png" id="5_jlsqs"]
 [ext_resource type="Texture2D" uid="uid://bus73bsk8gsl4" path="res://assets/background-europe.png" id="6_jlsqs"]
 [ext_resource type="Texture2D" uid="uid://br74ottxli04j" path="res://assets/test32.png" id="6_nxtc6"]
-[ext_resource type="Texture2D" uid="uid://c42hnc1exwbh4" path="res://assets/railui.png" id="7_nxtc6"]
 [ext_resource type="FontFile" uid="uid://rtxkqtqh6g0n" path="res://fonts/Jersey10-Regular.ttf" id="10_bjd11"]
 [ext_resource type="Texture2D" uid="uid://dis7c1470xovt" path="res://assets/side-background.png" id="10_lhr70"]
+[ext_resource type="Texture2D" uid="uid://ctw111gcby55j" path="res://assets/station.png" id="10_qmy6f"]
 [ext_resource type="Texture2D" uid="uid://c607ib00aqa8x" path="res://assets/logo-no-background.png" id="11_wp0k4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bjd11"]
@@ -72,35 +72,94 @@ texture = ExtResource("6_jlsqs")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
-[node name="GridContainer" type="GridContainer" parent="UI"]
-offset_left = 1664.0
-offset_right = 1704.0
-offset_bottom = 40.0
-columns = 2
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+offset_left = 1695.0
+offset_top = 28.0
+offset_right = 1905.0
+offset_bottom = 348.0
+theme_override_constants/separation = 30
 
-[node name="TextureRect" type="TextureRect" parent="UI/GridContainer"]
+[node name="Label" type="Label" parent="UI/VBoxContainer"]
 layout_mode = 2
-texture = ExtResource("7_nxtc6")
+theme_override_fonts/font = ExtResource("10_bjd11")
+theme_override_font_sizes/font_size = 36
+text = "Your resources"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/VBoxContainer"]
+layout_direction = 2
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="UI/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("5_jlsqs")
 expand_mode = 2
 stretch_mode = 5
 
-[node name="Label" type="Label" parent="UI/GridContainer"]
+[node name="TracksLabel" type="Label" parent="UI/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("10_bjd11")
-theme_override_font_sizes/font_size = 20
-text = "ses"
+theme_override_font_sizes/font_size = 30
+text = "Tracks"
 
-[node name="Trainlabel" type="Label" parent="UI/GridContainer"]
+[node name="HBoxContainer2" type="HBoxContainer" parent="UI/VBoxContainer"]
 layout_mode = 2
-theme_override_fonts/font = ExtResource("10_bjd11")
-theme_override_font_sizes/font_size = 20
-text = "s"
+theme_override_constants/separation = 20
+alignment = 1
 
-[node name="Scorelabel" type="Label" parent="UI/GridContainer"]
+[node name="TextureRect" type="TextureRect" parent="UI/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+texture = ExtResource("10_qmy6f")
+expand_mode = 2
+stretch_mode = 5
+
+[node name="Trainlabel" type="Label" parent="UI/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 theme_override_fonts/font = ExtResource("10_bjd11")
-theme_override_font_sizes/font_size = 20
-text = "s"
+theme_override_font_sizes/font_size = 30
+text = "Trains: x"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="UI"]
+offset_left = 1695.0
+offset_top = 500.0
+offset_right = 1896.0
+offset_bottom = 800.0
+theme_override_constants/separation = 30
+
+[node name="Label" type="Label" parent="UI/VBoxContainer2"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_bjd11")
+theme_override_font_sizes/font_size = 36
+text = "Current game"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="TextureRect" type="TextureRect" parent="UI/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+texture = ExtResource("2_q8u5g")
+expand_mode = 2
+
+[node name="StationsLabel" type="Label" parent="UI/VBoxContainer2/HBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_bjd11")
+theme_override_font_sizes/font_size = 30
+text = "Stations: "
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="UI/VBoxContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 20
+alignment = 1
+
+[node name="Scorelabel" type="Label" parent="UI/VBoxContainer2/HBoxContainer3"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("10_bjd11")
+theme_override_font_sizes/font_size = 30
+text = "Score: x"
 
 [node name="Sprite2D2" type="Sprite2D" parent="."]
 position = Vector2(1792, 540)
