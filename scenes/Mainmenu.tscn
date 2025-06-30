@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://c0ix3ngwekma2"]
+[gd_scene load_steps=4 format=3 uid="uid://c0ix3ngwekma2"]
 
 [ext_resource type="Script" uid="uid://2rm5aget2c4b" path="res://scripts/mainmenu.gd" id="1_gmv32"]
+[ext_resource type="Texture2D" uid="uid://c4sjq7nwjm3r5" path="res://assets/background-europe-blur.png" id="2_n47lj"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fk6kl"]
 bg_color = Color(1, 1, 1, 1)
@@ -45,6 +46,11 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_fk6kl")
 text = "Exit game"
 
 [node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+show_behind_parent = true
+scale = Vector2(2.3, 2.3)
+texture = ExtResource("2_n47lj")
 
 [connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="VBoxContainer/Button2" to="." method="_on_exit_pressed"]
