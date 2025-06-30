@@ -92,7 +92,6 @@ func _on_track_timer_timeout() -> void:
 	_update_track_counter()
 
 func _init_map() -> void:
-	set_rendering_quadrant_size(64)
 	for x in grid_size_x:
 		for y in grid_size_y:
 			var cell = Vector2i(x, y)

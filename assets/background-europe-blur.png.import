@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bus73bsk8gsl4"
-path="res://.godot/imported/background-europe.png-981053570288bb791dfbbbf0f408fc98.ctex"
+uid="uid://c4sjq7nwjm3r5"
+path="res://.godot/imported/background-europe-blur.png-1646ce3444d2158fd1b1405c653917b6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/background-europe.png"
-dest_files=["res://.godot/imported/background-europe.png-981053570288bb791dfbbbf0f408fc98.ctex"]
+source_file="res://assets/background-europe-blur.png"
+dest_files=["res://.godot/imported/background-europe-blur.png-1646ce3444d2158fd1b1405c653917b6.ctex"]
 
 [params]
 
