@@ -51,6 +51,7 @@ var tracks = 20
 @onready var ScoreCounterLabel: Label = get_node("../UI/VBoxContainer2/HBoxContainer3/Scorelabel")
 @onready var StationCounterLabel: Label = get_node("../UI/VBoxContainer2/HBoxContainer/StationsLabel")
 
+
 signal score_changed(new_score: int)
 
 var track_count: int = 0

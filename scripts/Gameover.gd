@@ -1,14 +1,13 @@
 extends CanvasLayer
-#class_name GameManager
 
 signal score_changed(new_score : int)
 signal game_over(final_score : int)
 
 var score : int = 0 
-@onready var score_label : Label = $Scorelabel
+@onready var ScoreLabel: Label = get_node("VBoxContainer/ScoreLabel")
 
 func _ready() -> void:
-	score_label.text = "Final score: %d" % GameManager.score
+	ScoreLabel.text = "Final score: %d" % GameManager.score
 	
 func _set_score(v:int) -> void:
 	score = v
