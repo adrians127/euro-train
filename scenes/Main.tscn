@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://co3l11lbmy5fb"]
+[gd_scene load_steps=18 format=3 uid="uid://co3l11lbmy5fb"]
 
 [ext_resource type="Script" uid="uid://cm4dx7dtmkdk6" path="res://scripts/Main.gd" id="1_elqb8"]
 [ext_resource type="Texture2D" uid="uid://bc5a3tytoyp1d" path="res://assets/Rail64x64_nobackground.png" id="2_nxtc6"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://br74ottxli04j" path="res://assets/test32.png" id="6_nxtc6"]
 [ext_resource type="Texture2D" uid="uid://c42hnc1exwbh4" path="res://assets/railui.png" id="7_nxtc6"]
 [ext_resource type="Texture2D" uid="uid://dis7c1470xovt" path="res://assets/side-background.png" id="10_lhr70"]
+[ext_resource type="Texture2D" uid="uid://c607ib00aqa8x" path="res://assets/logo-no-background.png" id="11_wp0k4"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_bjd11"]
 texture = ExtResource("2_q8u5g")
@@ -98,3 +99,8 @@ text = "s"
 position = Vector2(1792, 540)
 scale = Vector2(2, 2)
 texture = ExtResource("10_lhr70")
+
+[node name="Sprite2D3" type="Sprite2D" parent="."]
+position = Vector2(1794, 1004)
+scale = Vector2(0.25, 0.25)
+texture = ExtResource("11_wp0k4")

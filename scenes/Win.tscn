@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=3 uid="uid://v5vibwan8ysa"]
+[gd_scene load_steps=3 format=3 uid="uid://v5vibwan8ysa"]
 
 [ext_resource type="Texture2D" uid="uid://c4sjq7nwjm3r5" path="res://assets/background-europe-blur.png" id="1_pnk8a"]
+[ext_resource type="Texture2D" uid="uid://c607ib00aqa8x" path="res://assets/logo-no-background.png" id="2_24ius"]
 
 [node name="Win" type="Control"]
 layout_mode = 3
@@ -26,3 +27,8 @@ text = "YOU HAVE WON LET\"S GO"
 show_behind_parent = true
 scale = Vector2(2.3, 2.3)
 texture = ExtResource("1_pnk8a")
+
+[node name="Sprite2D2" type="Sprite2D" parent="."]
+position = Vector2(-5.00002, -295)
+scale = Vector2(0.954861, 0.954861)
+texture = ExtResource("2_24ius")
