@@ -4,7 +4,7 @@
 [ext_resource type="FontFile" uid="uid://rtxkqtqh6g0n" path="res://fonts/Jersey10-Regular.ttf" id="2_wy22o"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_csis4"]
-size = Vector2(16, 16)
+size = Vector2(60, 60)
 
 [node name="Area2D" type="Area2D"]
 script = ExtResource("1_wy22o")
