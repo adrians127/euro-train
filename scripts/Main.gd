@@ -3,6 +3,7 @@ extends Node2D
 @onready var Map: TileMapLayer = $TileMapLayer
 @onready var StationsContainer: Node2D = $StationsContainer
 @onready var GameOverScreen: CanvasLayer = $Gameover
+@onready var GameWonScreen: CanvasLayer = $Win
 
 var Station = preload("res://scenes/Station.tscn")
 var graph = {}
@@ -18,7 +19,7 @@ func _update_stations_counter() -> void:
 func _ready() -> void:
 	_generate_initial_stations()
 	
-	station_timer.wait_time = 5
+	station_timer.wait_time = 8
 	station_timer.one_shot = false
 	add_child(station_timer)
 	station_timer.connect("timeout", Callable(self, "_on_station_timer_timeout"))

@@ -98,7 +98,6 @@ func _init_map() -> void:
 		for y in grid_size_y:
 			var cell = Vector2i(x, y)
 			if WATER_CELLS.has(cell):
-				print("SRAKA")
 				cells[cell] = {"type": "background_unusable"}
 				set_cell(cell, BACKGROUND_UNUSABLE_ID, Vector2i.ZERO, 0)
 				continue
@@ -231,18 +230,12 @@ func _update_connections() -> void:
 		if station_graph[st.station_id].is_empty():
 			st.set_connected(false)
 
-	print('---   STATION GRAPH   ---')
-	for id in station_graph.keys():
-		print('Station %d → %s' % [id, station_graph[id]])
-
 func get_connected_stations(station_id: int) -> Array:
 	return station_graph.get(station_id, [])
 
 func generate_station_cells(n: int) -> Array[Vector2i]:
 	var free = get_free_cells()
-	print(free)
 	free = free.filter(func(pos): return _is_far_enough_from_other_stations(pos))
-	print(free)
 	free.shuffle()
 	return free.slice(0, n)
 	
